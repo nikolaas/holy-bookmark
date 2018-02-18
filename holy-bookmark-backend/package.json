@@ -15,13 +15,15 @@
     "dev": {
       "command": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "EXTERNAL_CONFIG": "H:\\nikolay\\projects\\holy-bookmark\\holy-bookmark-backend\\external-config.json"
       }
     },
     "debug": {
-      "command": "nodemon --inspect -w src --exec \"babel-node src --presets es2015,stage-0\"",
+      "command": "nodemon --inspect-brk -w src --exec \"babel-node src --presets es2015,stage-0\"",
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "EXTERNAL_CONFIG": "H:\\nikolay\\projects\\holy-bookmark\\holy-bookmark-backend\\external-config.json"
       }
     },
     "build": {
@@ -49,10 +51,12 @@
     "express": "^4.13.3",
     "express-session": "^1.15.6",
     "formidable": "^1.1.1",
+    "jsonwebtoken": "^8.1.1",
     "mime": "^1.4.1",
     "morgan": "^1.8.0",
     "nconf": "^0.9.1",
     "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "ramda": "^0.25.0"

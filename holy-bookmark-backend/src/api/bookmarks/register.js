@@ -2,8 +2,6 @@ import { post } from "../../utils/api.utils";
 import { BookmarkDao } from "../../dao/bookmarks.dao";
 
 function registerBookmarks(req, res, next) {
-    console.log(`Register bookmark`, req.headers);
-    console.log(`Register bookmark`, req.body);
     const bookmarks = req.body.bookmarks;
     BookmarkDao.addBookmarks(bookmarks)
         .then(() => {

@@ -19,9 +19,14 @@ app.use(morgan('dev'));
 // 3rd party middleware
 app.use(cors({
 	credentials: true,
-	origin: 'http://localhost:8080',
+	// origin: 'http://localhost:8080',
+	origin: [
+		/^(http|https):\/\/localhost:8080/,
+		/^chrome-extension:\/\/.*/,
+	],
     methods: 'GET, POST, PATCH, DELETE',
-    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Cookie'
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    exposedHeaders: 'Content-Type, Authorization'
 }));
 
 app.use(cookieParser());

@@ -17,3 +17,7 @@ export function isPromise(object) {
     }
     return isFunction(object.then);
 }
+
+export function isObject(target) {
+    return typeof target === 'object';
+}

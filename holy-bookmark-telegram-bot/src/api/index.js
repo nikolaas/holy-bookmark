@@ -1,27 +1,16 @@
 import axios from 'axios';
 import config from '../config';
-
-function headersLogger(headers) {
-    Object.keys(headers).forEach(header => {
-        console.log(`${header}=${headers[header]}`);
-    });
-}
+import { AuthInterceptor } from './auth-interceptor';
 
 const api = axios.create({
     withCredentials: true,
-    baseURL: 'http://localhost:8080',
+    baseURL: config.backend.url,
 });
 
 // Add a response interceptor
-api.interceptors.response.use(function (response) {
-    // Do something with response data
-    console.log('Response headers');
-    headersLogger(response.headers);
-    return response;
-}, function (error) {
-    // Do something with response error
-    return Promise.reject(error);
-});
+const authInterceptor = new AuthInterceptor();
+api.interceptors.request.use(authInterceptor.interceptRequest);
+api.interceptors.response.use(authInterceptor.interceptResponse);
 
 const urls = {
     login: `/login`,
@@ -29,20 +18,17 @@ const urls = {
 };
 
 const login = () => {
-    const data = {
+    return api.post(urls.login, {
         username: config.backend.username,
         password: config.backend.password,
-    };
-    return api.post(urls.login, data).then(response => {
-        return response;
     });
 };
 
 const addBookmarks = bookmarks => {
     return api.post(urls.addBookmarks, { bookmarks })
         .catch(error => {
-            console.log(`Error when try add bookmarks`, error);
-            if (error.response.status === 401) {
+            console.log(`Error when try add bookmarks`, error.message);
+            if (error.response && error.response.status === 401) {
                 console.log(`Logining...`);
                 return login().then(() => {
                     console.log(`Logined`);

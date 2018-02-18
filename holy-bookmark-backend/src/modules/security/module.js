@@ -5,7 +5,7 @@ import { isActive, activate } from './activation';
 import { createUser } from './models/user';
 import { Permissions } from './models/permissions';
 import { UserStore } from './stores/user.store';
-import configurePassport from './configs/passport.config';
+import configurePassport from './core/passport.config';
 import AuthController from './controllers/auth.controller';
 import api from './api';
 
@@ -33,8 +33,8 @@ function installApi(app, config, db) {
     app.use('/api', api({ config, db }));
 }
 
-function installControllers(app, strategy) {
-    const authController =  new AuthController(strategy);
+function installControllers(app, config) {
+    const authController =  new AuthController(config);
     app.post('/login', authController.login);
     app.post('/register', authController.register);
     app.get('/logout', authController.logout);
@@ -46,15 +46,13 @@ function securityModule({app, config, db}) {
     }
     activate();
 
-    const strategy = config.get('security.strategy.name');
-
     configureExpress(app);
-    configurePassport(strategy, config);
+    configurePassport(config);
 
     return Promise.resolve()
         .then(() => installStores(config, db))
         .then(() => installApi(app, config, db))
-        .then(() => installControllers(app, strategy));
+        .then(() => installControllers(app, config));
 }
 
 export default module('security', securityModule);

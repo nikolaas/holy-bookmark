@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel-node": "babel-node",
     "dev": "cross-env EXTERNAL_CONFIG='H:\\nikolay\\projects\\holy-bookmark\\holy-bookmark-telegram-bot\\external-config.js' nodemon -w src --exec npm run babel-node -- src",
-    "debug": "cross-env EXTERNAL_CONFIG='H:\\nikolay\\projects\\holy-bookmark\\holy-bookmark-telegram-bot\\external-config.js' nodemon --inspect -w src --exec \"babel-node src\"",
+    "debug": "cross-env EXTERNAL_CONFIG='H:\\nikolay\\projects\\holy-bookmark\\holy-bookmark-telegram-bot\\external-config.js' nodemon --inspect=9223 -w src --exec \"babel-node src\"",
     "build": "babel src -d dist",
     "start": "cross-env EXTERNAL_CONFIG='H:\\nikolay\\projects\\holy-bookmark\\holy-bookmark-telegram-bot\\external-config.js' node dist"
   },

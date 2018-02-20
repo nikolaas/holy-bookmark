@@ -21,9 +21,21 @@ function registerBookmark(bot, message) {
         .filter(urlEntityFilter)
         .map(extractUrl(message.text));
 
+    if (urls .length === 0) {
+        bot.sendMessage(message.chat.id, 'I got it but do not see the link in your message.');
+        return;
+    }
+
+    // usually a message contains article's title with a link following it
+    // but sometimes article's title contains text like 'google.com' or etc
+    // so we consider only last url as article's link
+    const url = urls[urls.length - 1];
+    const entity = message.entities[message.entities.length - 1];
+    const name = message.text.substring(0, entity.offset).trim();
+
     console.log(`Received ${urls.length} url(s): ${urls.map(url => `"${url}"`).join(', ')}`);
     console.log('Sending url(s)to backend');
-    addBookmarks(urls)
+    addBookmarks([{ name, url }])
         .then(() => {
             bot.sendMessage(message.chat.id, 'I got it');
         })

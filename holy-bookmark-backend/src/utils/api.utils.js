@@ -1,4 +1,8 @@
-import {authenticated} from "../modules/security";
+import moment from "moment";
+import { toPairs } from "ramda";
+import { authenticated } from "../modules/security";
+import { DATE_FORMATS } from "../constants";
+import { getPropertyType } from "./object.utils";
 
 const HTTP_METHODS = ['get', 'post', 'patch', 'delete'];
 
@@ -65,4 +69,31 @@ export function del(config) {
         ...config,
         method: 'DELETE'
     });
+}
+
+function parseValue(type, value, options = {}) {
+    if (value == null) {
+        return null;
+    }
+    switch (type) {
+        case 'string': return String(value);
+        case 'number': return parseInt(value, 10);
+        case 'boolean': return value === 'true';
+        case 'date': return moment(value, options.dateFormat || DATE_FORMATS.COMMON).toDate();
+        default: return value;
+    }
+}
+
+export function queryToObject(Constructor, query = {}, options) {
+    return toPairs(query)
+        .map(([param, value]) => {
+            const type = getPropertyType(Constructor, param);
+
+            if (!type) {
+                return null;
+            }
+
+            return { prop: param, value: parseValue(type, value, options)}
+        })
+        .reduce((accumulator, { prop, value }) => ({ ...accumulator, [prop]: value }), {})
 }

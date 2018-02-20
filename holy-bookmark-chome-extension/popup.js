@@ -156,7 +156,7 @@
     function removeLink(bookmark, item) {
         api.deleteBookmark(bookmark)
             .then(function () {
-                item.classList.add('bookmarks__bookmark--removing');
+                item.classList.add('bookmarks__list-item--removing');
                 return new Promise(function (resolve) {
                     setTimeout(function () {
                         item.remove();
@@ -169,10 +169,13 @@
 
     function createBookmarkItem(bookmark, index) {
         const item = document.createElement('li');
-        item.classList.add('bookmarks__bookmark');
+        item.classList.add('bookmarks__list-item');
 
-        const link = createLink(bookmark);
-        link.classList.add('bookmarks__bookmark-link');
+        const link = createLink(bookmark.url);
+        link.classList.add('bookmarks__bookmark');
+        if (!bookmark.viewed) {
+            link.classList.add('bookmarks__bookmark--new');
+        }
         link.addEventListener('click', openLink);
 
         const number = document.createElement('span');
@@ -182,7 +185,7 @@
 
         const text = document.createElement('span');
         text.classList.add('bookmarks__bookmark-text');
-        setNodeText(text, bookmark);
+        setNodeText(text, bookmark.name || bookmark.url);
         link.appendChild(text);
 
         const remove = document.createElement('button');
@@ -207,6 +210,7 @@
             clearNode(bookmarksCount);
             setNodeText(bookmarksCount, 'There\'s no bookmarks yet');
             clearNode(bookmarksList);
+            bookmarksList.classList.add('bookmarks__list--empty');
         } else {
             clearNode(bookmarksCount);
             if (bookmarks.length === 1) {
@@ -218,6 +222,7 @@
             bookmarks.forEach(function (bookmark, index) {
                 bookmarksList.appendChild(createBookmarkItem(bookmark, index));
             })
+            bookmarksList.classList.remove('bookmarks__list--empty');
         }
     }
 
@@ -226,9 +231,9 @@
         api.getBookmarks()
             .then(function (bookmarks) {
                 _bookmarks = bookmarks;
-                renderBookmarksList(bookmarks);
             })
             .finally(function () {
+                renderBookmarksList(_bookmarks);
                 updateBookmarksButton.classList.remove('bookmarks__update--loading');
             });
     }

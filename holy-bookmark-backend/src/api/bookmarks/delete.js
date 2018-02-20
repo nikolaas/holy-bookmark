@@ -1,11 +1,8 @@
 import { del } from "../../utils/api.utils";
-import { BookmarkDao } from "../../dao/bookmarks.dao";
+import { bookmarksService } from "../../service/bookmarks.service";
 
 function deleteBookmarks(req, res, next) {
-    const bookmark = req.query.bookmark;
-    console.log(`Delete bookmark`, req.query);
-    console.log(`Delete bookmark ${bookmark}`);
-    BookmarkDao.deleteBookmark(bookmark)
+    bookmarksService.deleteBookmark(req.params.bookmarkId)
         .then(() => {
             res.sendStatus(200);
         })
@@ -15,7 +12,7 @@ function deleteBookmarks(req, res, next) {
 }
 
 export default del({
-    path: '/bookmarks',
+    path: '/bookmarks/:bookmarkId',
     authenticated: true,
     handler: deleteBookmarks,
 })

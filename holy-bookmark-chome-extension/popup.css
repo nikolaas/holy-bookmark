@@ -283,20 +283,22 @@ body {
     margin-top: 0.5rem;
 }
 
-.bookmarks__bookmark {
+.bookmarks__list--empty {
+    margin-top: 20px;
+}
+
+.bookmarks__list-item {
     border-top: 1px solid #eee;
-    /*transform: scaleY(1);*/
     opacity: 1;
     transform-origin: center top;
     transition: all 0.2s linear;
 }
 
-.bookmarks__bookmark--removing {
+.bookmarks__list-item--removing {
     opacity: 0;
-    /*transform: scaleY(0);*/
 }
 
-.bookmarks__bookmark-link {
+.bookmarks__bookmark {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -305,8 +307,12 @@ body {
     text-decoration: none;
 }
 
-.bookmarks__bookmark-link:hover {
+.bookmarks__bookmark:hover {
     background: #eee;
+}
+
+.bookmarks__bookmark--new {
+    font-weight: 700;
 }
 
 .bookmarks__bookmark-number {
@@ -338,7 +344,7 @@ body {
     opacity: 1;
 }
 
-.bookmarks__bookmark-link:hover .bookmarks__bookmark-remove {
+.bookmarks__bookmark:hover .bookmarks__bookmark-remove {
     display: block;
 }
 

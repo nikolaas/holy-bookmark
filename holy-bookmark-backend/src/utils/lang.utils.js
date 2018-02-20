@@ -11,6 +11,14 @@ export function isString(object) {
     return typeof object === 'string' || (object instanceof String);
 }
 
+export function isNumber(object) {
+    return typeof object === 'string' || (object instanceof String);
+}
+
+export function isDate(object) {
+    return typeof object === 'string' || (object instanceof String);
+}
+
 export function isPromise(object) {
     if (!object) {
         return false;

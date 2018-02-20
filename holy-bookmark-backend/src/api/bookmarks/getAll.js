@@ -1,8 +1,8 @@
 import { get } from "../../utils/api.utils";
-import { BookmarkDao } from "../../dao/bookmarks.dao";
+import { bookmarksService } from "../../service/bookmarks.service";
 
 function getBookmarks(req, res, next) {
-    BookmarkDao.getBookmarks()
+    bookmarksService.getBookmarks(req.query)
         .then(bookmarks => {
             res.json(bookmarks);
         })

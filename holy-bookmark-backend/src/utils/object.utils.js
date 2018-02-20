@@ -12,3 +12,8 @@ export function instantiate(Constructor, data, undefinedValue = null) {
 
     return obj;
 }
+
+export function getPropertyType(Constructor, prop) {
+    const typeMapping = Constructor.typeMapping || {};
+    return typeMapping[prop];
+}

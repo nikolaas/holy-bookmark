@@ -4,23 +4,24 @@
 
     function fetchBookmarks() {
         console.log('Fetching bookmarks...');
-        return api.getBookmarks()
-            .then(bookmarks => {
-                const bookmarksCount = Math.min(bookmarks.length, 999);
-                console.log('Fetched ' + bookmarksCount + ' bookmark(s)');
+        return api.getNewBookmarksCount()
+            .then(bookmarksCount => {
+                const normalizedBookmarksCount = Math.min(bookmarksCount, 999);
+                console.log('Fetched ' + normalizedBookmarksCount + ' bookmark(s)');
+                chrome.browserAction.setBadgeBackgroundColor({
+                    color: [255, 0, 0, 255]
+                });
                 chrome.browserAction.setBadgeText({
-                    text: bookmarksCount > 0 ? String(bookmarksCount) : ''
+                    text: normalizedBookmarksCount > 0 ? String(normalizedBookmarksCount) : ''
                 });
             });
     }
     
     function runBookmarksPooling() {
-        bookmarksPooling = setInterval(fetchBookmarks, 5000);
+        fetchBookmarks().finally(function () {
+            bookmarksPooling = setInterval(fetchBookmarks, 5000);
+        });
     }
-
-    // chrome.browserAction.setBadgeBackgroundColor({
-    //     color: [255, 0, 0, 255]
-    // });
 
     if (api.isAuthenticated()) {
         console.log('Start pooling for bookmarks');

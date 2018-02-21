@@ -20,9 +20,9 @@ function deserializeUser(id, done) {
         });
 }
 
-export default function configurePassport(config) {
+export default function configurePassport() {
     passport.use(createLocalStrategy());
-    passport.use(createJwtStrategy(config));
+    passport.use(createJwtStrategy());
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 }

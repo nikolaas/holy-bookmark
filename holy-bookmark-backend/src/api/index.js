@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { version } from '../../package.json';
 import { registerMethods } from '../utils/api.utils';
-import bookmarksMethods from './bookmarks';
+import linksMethods from './links';
 
-export default ({ config, db }) => {
+export default () => {
 	const api = Router();
 
-	registerMethods(api, ...bookmarksMethods);
+	registerMethods(api, ...linksMethods);
 
 	// perhaps expose some API metadata at the root
 	api.get('/', (req, res) => {

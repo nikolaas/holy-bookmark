@@ -14,13 +14,6 @@ export class User {
     
 }
 
-let usersCounter = 0;
-
-function generateId() {
-    usersCounter += 1;
-    return usersCounter;
-}
-
 /**
  * Create user with specified login and password
  * @param name {string}
@@ -30,8 +23,7 @@ function generateId() {
  * @returns {User}
  */
 export function createUser(name, password, permissions = [], roles = []) {
-    const id = generateId();
-    return new User(id, name, password, permissions, roles);
+    return new User(null, name, password, permissions, roles);
 }
 
 export function toPublicUser(user) {

@@ -5,12 +5,11 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import config from './config';
+import { initializeDb, loadModules } from './core';
 import security from './modules/security';
-import { initializeDb } from './core/db-initializer';
-import { ModuleLoader } from './core/module-loader';
 import api from './api';
 
-let app = express();
+const app = express();
 app.server = http.createServer(app);
 
 // logger
@@ -19,7 +18,6 @@ app.use(morgan('dev'));
 // 3rd party middleware
 app.use(cors({
 	credentials: true,
-	// origin: 'http://localhost:8080',
 	origin: [
 		/^(http|https):\/\/localhost:8080/,
 		/^chrome-extension:\/\/.*/,
@@ -34,22 +32,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // connect to db
-initializeDb( db => {
-	const moduleLoader = new ModuleLoader(app, config, db);
-
-	const modules = [
-		security,
-	];
-
-    // initialize security module
-	moduleLoader.loadModules(...modules).then(() => {
-		// api router
-		app.use('/api', api({ config, db }));
-
+initializeDb()
+	.then(() => {
+		return loadModules(app, [security]);
+	})
+	.then(() => {
+		app.use('/api', api());
+	})
+	.then(() => {
 		app.server.listen(config.get('port'), () => {
 			console.log(`Started on port ${app.server.address().port}`);
 		});
 	});
-});
 
 export default app;

@@ -19,14 +19,6 @@ const loginHandler = (req, res, next) => err => {
 
 export default class AuthController {
 
-    constructor(config) {
-        this.config = config;
-
-        this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
-        this.register = this.register.bind(this);
-    }
-
     login(req, res, next) {
         console.log('Incoming authentication request:', req.body);
         passport.authenticate('local', function(err, user, info) {

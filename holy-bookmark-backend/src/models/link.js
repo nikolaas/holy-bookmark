@@ -1,4 +1,4 @@
-export class Bookmark {
+export class Link {
 
     static typeMapping = {
         id: 'string',

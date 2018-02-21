@@ -14,7 +14,7 @@ api.interceptors.response.use(authInterceptor.interceptResponse);
 
 const urls = {
     login: `/login`,
-    addBookmarks: `/api/bookmarks`,
+    addBookmarks: `/api/links`,
 };
 
 const login = () => {

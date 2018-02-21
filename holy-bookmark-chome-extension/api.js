@@ -55,15 +55,15 @@
     };
 
     Api.prototype.getBookmarks = function getBookmarks() {
-        return this.axiosInstance.get('/api/bookmarks', { params: { order: 'desc' } });
+        return this.axiosInstance.get('/api/links', { params: { order: 'desc' } });
     };
 
     Api.prototype.getNewBookmarksCount = function getNewBookmarksCount() {
-        return this.axiosInstance.get('/api/bookmarks/count', { params: { viewed: false } });
+        return this.axiosInstance.get('/api/links/count', { params: { viewed: false } });
     };
 
     Api.prototype.deleteBookmark = function deleteBookmark(bookmarkId) {
-        return this.axiosInstance.delete('/api/bookmarks/' + bookmarkId);
+        return this.axiosInstance.delete('/api/links/' + bookmarkId);
     };
 
     Api.prototype.isAuthenticated = function isAuthenticated() {

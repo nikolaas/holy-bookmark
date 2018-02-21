@@ -6,7 +6,7 @@ import { getCurrentUser } from './getCurrentUser';
 import { getUsers } from './getUsers';
 import { getUser } from './getUser';
 
-export default ({ config, db }) => {
+export default () => {
     let api = Router();
 
     api.get('/user', authenticated(), getCurrentUser);

@@ -163,7 +163,7 @@
         }
 
         function removeLink(bookmark, item) {
-            api.deleteBookmark(bookmark)
+            api.deleteBookmark(bookmark.id)
                 .then(function () {
                     item.classList.add('list__item--removing');
                     return new Promise(function (resolve) {

@@ -62,8 +62,8 @@
         return this.axiosInstance.get('/api/bookmarks/count', { params: { viewed: false } });
     };
 
-    Api.prototype.deleteBookmark = function deleteBookmark(bookmark) {
-        return this.axiosInstance.delete('/api/bookmarks/' + bookmark.id);
+    Api.prototype.deleteBookmark = function deleteBookmark(bookmarkId) {
+        return this.axiosInstance.delete('/api/bookmarks/' + bookmarkId);
     };
 
     Api.prototype.isAuthenticated = function isAuthenticated() {

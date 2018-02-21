@@ -51,10 +51,7 @@
     }
 
     Api.prototype.login = function login(username, password) {
-        return this.axiosInstance.post('/login', { username: username, password: password })
-            .then(function (response) {
-                localStorage.authToken = response.headers['authorization'];
-            });
+        return this.axiosInstance.post('/login', { username: username, password: password });
     };
 
     Api.prototype.getBookmarks = function getBookmarks() {

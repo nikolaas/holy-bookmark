@@ -1,3 +1,4 @@
+import uuid from "uuid/v4";
 import { AbstractStore } from "../../../core/db";
 
 class UserDao extends AbstractStore {
@@ -25,7 +26,8 @@ class UserDao extends AbstractStore {
                     if (existedUser) {
                         return tx.update(this.storeName, { name: user.name }, user);
                     } else {
-                        return tx.insertOne(this.storeName, user);
+                        const savingUser = user.id == null ? { ...user, id: uuid() } : user ;
+                        return tx.insertOne(this.storeName, savingUser);
                     }
                 });
         });

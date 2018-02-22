@@ -6,3 +6,4 @@
 .DS_Store
 external-config.json
 database.json
+pre-installed-users.json

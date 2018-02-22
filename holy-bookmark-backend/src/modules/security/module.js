@@ -1,10 +1,8 @@
 import session from 'express-session';
 import passport from 'passport';
-import { module } from '../../core';
+import { module } from '../../core/modules';
 import { isActive, activate } from './activation';
-import { createUser } from './models/user';
-import { Permissions } from './models/permissions';
-import { userDao } from './dao/user.dao';
+import { preInstallUsers } from './pre-install';
 import configurePassport from './core/passport.config';
 import AuthController from './controllers/auth.controller';
 import api from './api';
@@ -21,20 +19,8 @@ function configureExpress(app) {
     app.use(passport.session());
 }
 
-function createUserIfNotExist(user) {
-    return userDao.findUserByName(user.name).then(existedUser => {
-        if (!existedUser) {
-            return userDao.saveUser(user);
-        }
-    })
-}
-
 function installStores() {
-    return Promise.all([
-        createUserIfNotExist(createUser('admin', 'admin', [Permissions.SHOW_USER])),
-        createUserIfNotExist(createUser('user1', '1')),
-        createUserIfNotExist(createUser('user2', '2')),
-    ]);
+    return preInstallUsers();
 }
 
 function installApi(app) {

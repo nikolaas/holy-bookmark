@@ -10,15 +10,20 @@
         return localStorage.authToken;
     };
 
-    LocalStorageAuthToken.prototype.saveAuthToken = function saveAuthToken(AuthToken) {
-        localStorage.authToken = AuthToken;
+    LocalStorageAuthToken.prototype.saveAuthToken = function saveAuthToken(authToken) {
+        localStorage.authToken = authToken;
+    };
+
+    LocalStorageAuthToken.prototype.removeAuthToken = function removeAuthToken() {
+        localStorage.removeItem('authToken');
     };
 
     function AuthInterceptor(authTokenStorage) {
         this.authTokenStorage = authTokenStorage;
 
         this.interceptRequest = this.interceptRequest.bind(this);
-        this.interceptResponse = this.interceptResponse.bind(this);
+        this.interceptSuccessResponse = this.interceptSuccessResponse.bind(this);
+        this.interceptErrorResponse = this.interceptErrorResponse.bind(this);
     }
 
     AuthInterceptor.prototype.interceptRequest = function interceptRequest(request) {
@@ -29,12 +34,18 @@
         return request;
     };
 
-    AuthInterceptor.prototype.interceptResponse = function interceptResponse(response) {
+    AuthInterceptor.prototype.interceptSuccessResponse = function interceptSuccessResponse(response) {
         if (response.headers['authorization']) {
             this.authTokenStorage.saveAuthToken(response.headers['authorization']);
-            this.authorization = response.headers['authorization'];
         }
         return response.data;
+    };
+
+    AuthInterceptor.prototype.interceptErrorResponse = function interceptErrorResponse(config) {
+        if (config.response && config.response.status === 401) {
+            this.authTokenStorage.removeAuthToken();
+        }
+        return Promise.reject(config.response);
     };
 
     function Api(backendUrl, authTokenStorage) {
@@ -47,7 +58,7 @@
         // Add a response interceptor
         const authInterceptor = new AuthInterceptor(this.authTokenStorage);
         this.axiosInstance.interceptors.request.use(authInterceptor.interceptRequest);
-        this.axiosInstance.interceptors.response.use(authInterceptor.interceptResponse);
+        this.axiosInstance.interceptors.response.use(authInterceptor.interceptSuccessResponse, authInterceptor.interceptErrorResponse);
     }
 
     Api.prototype.login = function login(username, password) {

@@ -1,7 +1,7 @@
-import { post } from "../../utils/api.utils";
-import { isString } from "../../utils/lang.utils";
-import { Link } from "../../models/link";
-import { linksService } from "../../service/links.service";
+import { post } from "../../../utils/api.utils";
+import { isString } from "../../../utils/lang.utils";
+import { Link } from "../models/link";
+import { linksService } from "../services/links.service";
 
 function registerLinks(req, res, next) {
     const links = req.body.bookmarks.map(linkData => {

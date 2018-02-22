@@ -5,9 +5,10 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import config from './config';
-import { initializeDb, loadModules } from './core';
+import { initializeDb } from './core/db';
+import { loadModules } from './core/modules';
 import security from './modules/security';
-import api from './api';
+import links from './modules/links';
 
 const app = express();
 app.server = http.createServer(app);
@@ -34,10 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // connect to db
 initializeDb()
 	.then(() => {
-		return loadModules(app, [security]);
-	})
-	.then(() => {
-		app.use('/api', api());
+		return loadModules(app, [security, links]);
 	})
 	.then(() => {
 		app.server.listen(config.get('port'), () => {

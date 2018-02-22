@@ -1,5 +1,5 @@
 import moment from "moment";
-import { DATE_FORMATS } from "../constants";
+import { DATE_FORMATS } from "../utils/date.utils";
 import { isString } from "./lang.utils";
 
 function compareBoolean(val1, val2) {

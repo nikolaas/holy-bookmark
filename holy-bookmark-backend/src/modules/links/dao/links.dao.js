@@ -1,7 +1,7 @@
-import { createSorter } from "../utils/sort.utils";
-import { getPropertyType } from "../utils/object.utils";
+import { createSorter } from "../../../utils/sort.utils";
+import { getPropertyType } from "../../../utils/object.utils";
 import { Link } from "../models/link";
-import { AbstractStore } from "../core/db";
+import { AbstractStore } from "../../../core/db";
 
 class LinksDao extends AbstractStore {
 

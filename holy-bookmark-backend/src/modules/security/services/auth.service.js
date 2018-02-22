@@ -1,6 +1,6 @@
 import { userDao } from '../dao/user.dao';
 import { createUser, toPublicUser, toPublicUsers } from '../models/user';
-import { createError } from '../../../models/error';
+import { createError } from '../models/error';
 import { Errors } from '../models/errors';
 
 function validateNewUserRequest(registerRequest) {

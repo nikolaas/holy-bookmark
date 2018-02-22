@@ -1,6 +1,6 @@
-import { get, queryToObject } from "../../utils/api.utils";
-import { Link } from "../../models/link";
-import { linksService } from "../../service/links.service";
+import { get, queryToObject } from "../../../utils/api.utils";
+import { Link } from "../models/link";
+import { linksService } from "../services/links.service";
 
 function getLinksCount(req, res, next) {
     linksService.getLinksCount(queryToObject(Link, req.query))

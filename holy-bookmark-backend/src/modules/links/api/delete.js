@@ -1,5 +1,5 @@
-import { del } from "../../utils/api.utils";
-import { linksService } from "../../service/links.service";
+import { del } from "../../../utils/api.utils";
+import { linksService } from "../services/links.service";
 
 function deleteLink(req, res, next) {
     linksService.deleteLink(req.params.linkId)

@@ -1,15 +1,12 @@
 export default {
-    // application port
+    // application server port
     port: 8080,
-    bodyLimit: "100kb",
-    corsHeaders: ["Link"],
 
     // security module configuration
     security: {
         jwt: {
-            secret: undefined, // defined in external config file
-            issuer: 'accounts.examplesoft.com',
-            audience: 'yoursite.net',
+            secret: undefined,
+            issuer: 'holybookmark.heroku.com',
         },
 
         // unauthorized request configuration
@@ -19,4 +16,8 @@ export default {
             redirect: '/'
         }
     },
+    database: {
+        type: undefined,
+        url: undefined,
+    }
 };

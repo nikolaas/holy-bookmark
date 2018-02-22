@@ -10,7 +10,7 @@ const api = axios.create({
 // Add a response interceptor
 const authInterceptor = new AuthInterceptor();
 api.interceptors.request.use(authInterceptor.interceptRequest);
-api.interceptors.response.use(authInterceptor.interceptResponse);
+api.interceptors.response.use(authInterceptor.interceptSuccessResponse, authInterceptor.interceptErrorResponse);
 
 const urls = {
     login: `/login`,
@@ -33,7 +33,7 @@ const addBookmarks = bookmarks => {
                 return login().then(() => {
                     console.log(`Logined`);
                     console.log(`Retry send bookmark to backend`);
-                    return addBookmarks(bookmarks)
+                    return addBookmarks(bookmarks);
                 });
             }
             return Promise.reject(error);

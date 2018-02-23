@@ -1,3 +1,3 @@
-import securityModule from './module';
+import linksModule from './module';
 
-export default securityModule;
+export default linksModule;

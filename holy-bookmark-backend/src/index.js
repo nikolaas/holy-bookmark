@@ -9,6 +9,7 @@ import { initializeDb } from './core/db';
 import { loadModules } from './core/modules';
 import security from './modules/security';
 import links from './modules/links';
+import telegramBot from './modules/telegram-bot';
 
 const app = express();
 app.server = http.createServer(app);
@@ -35,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // connect to db
 initializeDb()
 	.then(() => {
-		return loadModules(app, [security, links]);
+		return loadModules(app, [security, links, telegramBot]);
 	})
 	.then(() => {
 		app.server.listen(config.get('port'), config.get('host'), () => {

@@ -38,8 +38,10 @@ initializeDb()
 		return loadModules(app, [security, links]);
 	})
 	.then(() => {
-		app.server.listen(config.get('port'), () => {
-			console.log(`Started on port ${app.server.address().port}`);
+		app.server.listen(config.get('port'), config.get('host'), () => {
+            const host = app.server.address().address;
+            const port = app.server.address().port;
+            console.log('Web server started at http://%s:%s', host, port);
 		});
 	});
 

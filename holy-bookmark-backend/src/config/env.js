@@ -1,5 +1,6 @@
 export default {
     port: process.env.PORT,
+    host: process.env.HOST,
     security: {
         jwt: {
             secret: process.env.SECURITY_JWT_SECRET,

@@ -1,6 +1,7 @@
 export default {
     // application server port
     port: 8080,
+    host: 'localhost',
 
     // security module configuration
     security: {

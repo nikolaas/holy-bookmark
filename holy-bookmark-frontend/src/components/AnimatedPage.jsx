@@ -28,8 +28,7 @@ function getDisplayState(base, state) {
 const Page = styled.div`
     min-height: 100%;
     height: 1px ;
-    display: ${props => getDisplayState('flex', props.state)};
-    flex-direction: column;
+    display: ${props => getDisplayState('block', props.state)};
     font-family: ${theme.font.family};
 `;
 
@@ -37,7 +36,7 @@ const PageHeader = styled(Header)``;
 
 const PageContent = styled.div`
     flex: 1 1 0;
-    display: ${props => getDisplayState('flex', props.state)};
+    display: ${props => getDisplayState('block', props.state)};
     align-items: stretch;
     transition: opacity ${props => props.duration}ms ease-in-out, 
                 display ${props => props.duration}ms step-start;

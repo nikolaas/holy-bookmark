@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Page } from '../components/Page';
-import { Field } from '../components/Field';
+import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { Link } from '../components/Link';
 
@@ -14,12 +14,12 @@ const LoginForm = styled.form`
     flex: 1 1 0;
     max-width: 30rem;
     
-    ${Field},
+    ${Input},
     ${Button} {
         width: 100%;    
     }
     
-    ${Field} {
+    ${Input} {
         margin-top: 1rem;
         &:first-child {
             margin-top: 0;
@@ -39,8 +39,8 @@ export const Login = () => {
     return (
         <Page>
             <LoginForm>
-                <Field type="text" name="username" placeholder="Username"/>
-                <Field type="password" name="password" placeholder="Password"/>
+                <Input type="text" name="username" placeholder="Username"/>
+                <Input type="password" name="password" placeholder="Password"/>
                 <Button>Log in</Button>
                 <CreateAccountSuggestion>
                     or <Link to="/register">create account</Link> if not exist

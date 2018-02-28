@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme from '../theme';
 
-const Input = styled.input`
+const OriginInput = styled.input`
     width: 100%;
     height: 2em;
     line-height: 2em;
@@ -15,14 +16,15 @@ const Input = styled.input`
 const Placeholder = styled.span`
     position: absolute;
     left: .5em;
-    bottom: .25em;
-    transform: ${props => props.focused ? 'translateY(-2.5em)' : 'translateY(0)'};
+    bottom: .5em;
+    transform: ${props => (props.focused || !props.empty) ? 'translateY(-2.5em)' : 'translateY(0)'};
+    font-size: ${props => (props.focused || !props.empty) ? '.65em' : 'inherit'};
     color: ${props => props.focused ? theme.color.primary : theme.color.secondary};
-    font-size: ${props => props.focused ? '.65em' : 'inherit'};
     transition: color .2s linear, font-size .2s linear, transform .2s linear;
+    pointer-events: none;
 `;
 
-const StyledField = styled.div`
+const InputWrapper = styled.div`
     height: 3em;
     display: flex;
     align-items: flex-end;
@@ -52,7 +54,15 @@ const StyledField = styled.div`
     }
 `;
 
-export const Field = styled(class extends React.Component {
+export const Input = styled(class extends React.Component {
+
+    static propTypes = {
+        value: PropTypes.string
+    };
+
+    static defaultProps = {
+        value: null
+    };
 
     constructor(props) {
         super(props);
@@ -78,10 +88,10 @@ export const Field = styled(class extends React.Component {
         const { focused } = this.state;
 
         return (
-            <StyledField focused={focused} className={className}>
-                {placeholder && <Placeholder focused={focused}>{placeholder}</Placeholder>}
-                <Input {...inputProps} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
-            </StyledField>
+            <InputWrapper focused={focused} className={className}>
+                {placeholder && <Placeholder focused={focused} empty={!inputProps.value}>{placeholder}</Placeholder>}
+                <OriginInput {...inputProps} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+            </InputWrapper>
         );
     }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page } from '../components/Page';
-import { Link } from '../components/Link';
+import { ButtonLink } from '../components/ButtonLink';
 
 export const Main = () => {
     // const user = {
@@ -15,13 +15,13 @@ export const Main = () => {
             {
                 user &&
                 <div>
-                    <Link to="/profile">Get Started</Link>
+                    <ButtonLink to="/profile">Get Started</ButtonLink>
                 </div>
             }
             {
                 !user &&
                 <div>
-                    <Link to="/login">Log in</Link> or <Link invert to="/register">Register</Link>
+                    <ButtonLink to="/login">Log in</ButtonLink> or <ButtonLink invert to="/register">Register</ButtonLink>
                 </div>
             }
         </Page>

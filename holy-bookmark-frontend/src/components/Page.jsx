@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../theme';
 
 export const Page = styled.div`
   width: 100%;
@@ -6,4 +7,5 @@ export const Page = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem 0;
+  font-size: ${theme.font.size.common};
 `;

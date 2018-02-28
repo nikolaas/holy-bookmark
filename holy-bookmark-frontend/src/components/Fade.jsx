@@ -42,12 +42,12 @@ const FadeEffect = styled.div`
     opacity: ${props => getOpacityState(props.state)};
 `;
 
+const FadeEffectRenderer = props => state => <FadeEffect {...props} state={state}/>;
+
 export const Fade = ({ timeout, in: inProp, ...props }) => {
     return (
         <Transition in={inProp} timeout={timeout}>
-            {
-                state => <FadeEffect {...props} state={state}/>
-            }
+            {FadeEffectRenderer(props)}
         </Transition>
     );
 };

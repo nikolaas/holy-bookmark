@@ -1,14 +1,6 @@
 import React from 'react';
-import styled from "styled-components";
+import { Page } from '../components/Page';
 import { Link } from '../components/Link';
-
-const GreetingContainer = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 0;
-`;
 
 export const Main = () => {
     // const user = {
@@ -19,7 +11,7 @@ export const Main = () => {
     const user = null;
 
     return (
-        <GreetingContainer>
+        <Page>
             {
                 user &&
                 <div>
@@ -32,6 +24,6 @@ export const Main = () => {
                     <Link to="/login">Log in</Link> or <Link invert to="/register">Register</Link>
                 </div>
             }
-        </GreetingContainer>
+        </Page>
     );
 };
